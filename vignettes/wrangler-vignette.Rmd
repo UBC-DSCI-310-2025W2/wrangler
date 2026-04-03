@@ -10,6 +10,7 @@ vignette: >
 # Introduction to wrangler
 
 This document provides examples of how to use the four functions in the wrangler package. The four functions are `filter_data()`, `drop_columns()`, `log_transform()`, and `make_scatter_plot()`. To explore the four functions available, we will be using the dataset `palmerpenguins` from the `palmerpenguins` package. Please find the code loading the necessary libraries below.
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -47,11 +48,11 @@ The function `filter_data()`, filters out any numeric or character values of 0 f
 ```{r}
 
 paste0("Number of numeric 0 values in the penguins dataset: ", any(penguins == 0))
-paste0("Number of string 0 values in the penguins dataset: ", any(penguins == "0"))
+paste0("Number of string '0' values in the penguins dataset: ", any(penguins == "0"))
 
 ```
 
-Above, we see that the penguins data set does not have any values of 0 in any columns. As such, the `filter_data()` function should return the exact same data frame. 
+Above, we see that the penguins data set does not have any values of 0 in any columns. As such, the `filter_data()` function will return the exact same data frame. 
 
 ```{r}
 penguins_filtered <- filter_data(penguins)
@@ -97,7 +98,7 @@ This function takes a numerical vector and applies a log transformation. The vec
 
 paste0("Number of NA values in 'bill_length_mm' column: ", sum(is.na(penguins$bill_length_mm)))
 
-penguins_no_NA <- na.omit(penguins$bill_length_mm)
+penguins_no_NA <- na.omit(penguins)
 
 paste0("Number of NA values in 'bill_length_mm' column after removing: ", sum(is.na(penguins_no_NA)))
 
@@ -107,9 +108,13 @@ Below, `log_transform()` is used to transform the `bill_length_mm` column. The f
 
 ```{r}
 
-head(penguins_no_NA)
-penguins_log_transformed <- log_transform(penguins_no_NA)
-head(penguins_log_transformed)
+print(head(penguins_no_NA[3]))
+
+penguins_log <- penguins_no_NA
+
+penguins_log$bill_length_mm <- log_transform(penguins_no_NA$bill_length_mm)
+
+print(head(penguins_log[3]))
 
 ```
 
@@ -125,5 +130,85 @@ make_scatter_plot(penguins, x = bill_depth_mm, y = bill_length_mm, "Relationship
 
 We can see the regression line plotted with the data points above. 
 
-### 
+### All Together!
+
+In this section we provided an example of using all of the functions in this package together to undertake a brief analysis of the `palmerpenguins` data set. We will be looking at the relationship between a penguin's bill length (mm) and flipper length (mm). 
+
+First, we will take a look at the first 6 rows of the `penguins` data set. 
+
+```{r}
+
+head(penguins)
+
+```
+
+Below, we use the `drop_columns()` function to drop all columns aside from `bill_length_mm` and `flipper_length_mm`. 
+
+```{r}
+
+columns_to_drop <- penguins %>%
+  select(-bill_length_mm, -flipper_length_mm)
+
+penguins_dropped <- drop_columns(penguins, colnames(columns_to_drop))
+
+head(penguins_dropped)
+
+```
+
+Next, we use the function `filter_data()` to filter out any numeric or character values of 0. The two columns of interest do not any any values of 0, so the `filter_data()` function will return the same data frame. 
+
+```{r}
+
+paste0("Number of numeric 0 values in columns: ", any(penguins_dropped == 0))
+paste0("Number of string '0' values in columns: ", any(penguins_dropped == "0"))
+
+paste0("Number of rows in data set before filtering: ", dim(penguins_dropped)[1])
+paste0("Data set type before filtering: ", class(penguins_dropped))
+
+penguins_filter <- filter_data(penguins_dropped)
+
+paste0("Number of rows in data set after filtering: ", dim(penguins_filter)[1])
+paste0("Data set type after filtering: ", class(penguins_filter))
+
+```
+Now, we will remove any NA values before using the `log_transform() function`.
+
+```{r}
+
+paste0("Number of NA values in 'bill_length_mm' column: ", sum(is.na(penguins_filter$bill_length_mm)))
+paste0("Number of NA values in 'flipper_length_mm' column: ", sum(is.na(penguins_filter$flipper_length_mm)))
+
+penguins_NA_removed <- na.omit(penguins_filter)
+
+paste0("Number of NA values in 'bill_length_mm' column after removing: ", sum(is.na(penguins_NA_removed$bill_length_mm)))
+
+paste0("Number of NA values in 'flipper_length_mm' column after removing: ", sum(is.na(penguins_NA_removed$flipper_length_mm)))
+
+```
+Here, we use the `log_transform()` function on both the `bill_length_mm` and `flipper_length_mm` columns.
+
+```{r}
+
+print(head(penguins_NA_removed))
+
+penguins_log_transformed <-penguins_NA_removed
+
+penguins_log_transformed$bill_length_mm <- log_transform(penguins_NA_removed$bill_length_mm)
+penguins_log_transformed$flipper_length_mm <- log_transform(penguins_NA_removed$flipper_length_mm)
+
+print(head(penguins_log_transformed))
+
+```
+Finally, we will use the `make_scatter_plot()` function to plot the relationship between `bill_length_mm` and `flipper_length_mm`, with a linear regression line. 
+
+```{r}
+
+make_scatter_plot(penguins_log_transformed, x = bill_length_mm, y = flipper_length_mm, "Relationship Between Penguin Bill Length and Flipper Length", "Bill Length (mm)", "Flipper Length (mm)", )
+
+```
+We can see from the plot above that there is a relatively strong, positive relationship between a penguin's flipper length and bill length.
+
+We hope you enjoy using our package, thank you for reading!
+
+# End
 
