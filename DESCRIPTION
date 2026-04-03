@@ -3,7 +3,8 @@ Title: Functions that can make cleaning data and plotting a model easier
 Version: 0.0.0.9000
 Authors@R: c(
   person("Audrey", "Vo", email = "vo_audrey@yahoo.com", role = c("aut", "cre")),
-  person("Roxanna", "Ng", email = "snowy17037@gmail.com", role = c("aut")))
+  person("Roxanna", "Ng", email = "snowy17037@gmail.com", role = c("aut")),
+  person("Philip", "Chen", email = "philipchen@hotmail.ca", role = c("aut")))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
