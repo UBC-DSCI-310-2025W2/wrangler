@@ -14,14 +14,19 @@
 #' @param pred_line_color Color for the prediction line
 #'
 #' @return A ggplot2::ggplot scatterplot
-library(ggplot2)
+#'
+#' @importFrom ggplot2 aes
+#' @importFrom rlang .data
+#'
+#' @export
+
 make_scatter_plot <- function(data,x,y,title,x_lab,y_lab,smooth_method = "lm",se = TRUE,
     point_alpha = 1,pred_line = NULL,pred_line_color = "blue") {
-  p <- ggplot(data, aes({{x}}, {{y}})) +
-    geom_point(alpha = point_alpha)
+  p <- ggplot2::ggplot(data, ggplot2::aes({{x}}, {{y}})) +
+    ggplot2::geom_point(alpha = point_alpha)
 
   if (!is.null(smooth_method)) {
-    p <- p + geom_smooth(
+    p <- p + ggplot2::geom_smooth(
       method = smooth_method,
       se = se,
       formula = y ~ x
@@ -29,13 +34,13 @@ make_scatter_plot <- function(data,x,y,title,x_lab,y_lab,smooth_method = "lm",se
   }
 
   if (!is.null(pred_line)) {
-    p <- p + geom_line(
+    p <- p + ggplot2::geom_line(
       aes(y = .data[[pred_line]]),
       color = pred_line_color
     )
   }
 
-  p <- p + labs(
+  p <- p + ggplot2::labs(
     title = title,
     x = x_lab,
     y = y_lab

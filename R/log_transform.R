@@ -5,11 +5,9 @@
 #' distributions, such as movie budget and box office revenue data.
 #'
 #' @param x A numeric vector of strictly positive values to be log transformed.
-#' @param col_name A string indicating the name of the variable being
-#'   transformed. Used in error messages for clarity. Default is "input".
+#' @param col_name A string indicating the name of the variable being transformed. Used in error messages for clarity. Default is "input".
 #'
-#' @return A numeric vector of the same length as `x` containing
-#'   the natural log of each element.
+#' @return A numeric vector of the same length as `x` containing the natural log of each element.
 #'
 #' @examples
 #' log_transform(c(1000, 5000, 20000))
