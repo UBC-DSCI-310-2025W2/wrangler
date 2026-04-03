@@ -1,5 +1,6 @@
 library(testthat)
-source("../../R/drop-columns.R")
+# source("../../R/drop-columns.R")
+library(wrangler)
 
 test_data <- data.frame(names = c("Emma", "Michelle", "Melody"),
                         age = c(20, 22, 21),

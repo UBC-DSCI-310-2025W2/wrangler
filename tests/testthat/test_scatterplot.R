@@ -1,7 +1,8 @@
 library(testthat)
 library(ggplot2)
 
-source("../../R/scatterplot.R")
+# source("../../R/scatterplot.R")
+library(wrangler)
 
 # test input data
 

@@ -1,6 +1,7 @@
 library(testthat)
 
-source("../../R/filter-data.R")
+# source("../../R/filter-data.R")
+library(wrangler)
 
 # simple cases
 one_col <- data.frame(a = c(0, 1, 2, 3))

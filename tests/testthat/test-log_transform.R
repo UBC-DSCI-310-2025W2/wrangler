@@ -1,6 +1,7 @@
 library(testthat)
 
-source("../../R/log_transform.R")
+# source("../../R/log_transform.R")
+library(wrangler)
 
 # --- expected use test cases ---
 

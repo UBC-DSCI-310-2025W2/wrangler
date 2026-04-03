@@ -1,5 +1,5 @@
 Package: wrangler
-Title: Functions that can make cleaning data and plotting a model easier. 
+Title: Functions that can make cleaning data and plotting a model easier 
 Version: 0.0.0.9000
 Authors@R: c(
   person("Audrey", "Vo", email = "vo_audrey@yahoo.com", role = c("aut", "cre")),
@@ -16,5 +16,7 @@ Imports:
     rlang
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
+Config/testthat/edition: 3
