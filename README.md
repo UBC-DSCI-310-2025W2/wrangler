@@ -4,7 +4,7 @@
 # wrangler
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/audrey-vo/wrangler/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/audrey-vo/wrangler/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/UBC-DSCI-310-2025W2/wrangler/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/UBC-DSCI-310-2025W2/wrangler/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of wrangler is to …
@@ -16,7 +16,7 @@ You can install the development version of wrangler from
 
 ``` r
 # install.packages("pak")
-pak::pak("audrey-vo/wrangler")
+pak::pak("UBC-DSCI-310-2025W2/wrangler")
 ```
 
 ## Example
