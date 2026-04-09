@@ -4,50 +4,93 @@
 # wrangler
 
 <!-- badges: start -->
+
 [![R-CMD-check](https://github.com/UBC-DSCI-310-2025W2/wrangler/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/UBC-DSCI-310-2025W2/wrangler/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of wrangler is to …
+`wrangler` is an R package that provides a set of helper functions for
+common data wrangling, transformation, and visualization tasks in data
+science workflows. It was developed as part of a movie budget and box
+office revenue analysis project, but the functions are general-purpose
+and reusable across similar data analysis projects.
+
+## Functions
+
+| Function | Description |
+|----|----|
+| `drop_columns()` | Drops specified columns from a data frame |
+| `filter_data()` | Filters out rows containing zero values from a data frame |
+| `log_transform()` | Applies a natural log transformation to a numeric vector |
+| `make_scatter_plot()` | Creates a customizable ggplot2 scatterplot with optional smoothing and prediction lines |
+
+## Where wrangler fits in the R ecosystem
+
+Several established R packages provide overlapping functionality:
+
+- [`dplyr`](https://dplyr.tidyverse.org/) provides `select()` and
+  `filter()` for column selection and row filtering, and
+  [`tidyr`](https://tidyr.tidyverse.org/) provides tools for data
+  transformation. `wrangler` differs by offering simpler wrappers — for
+  example, `drop_columns()` accepts a plain character vector of column
+  names and `filter_data()` automatically removes zero-value rows
+  without requiring the user to specify conditions explicitly.
+- [`ggplot2`](https://ggplot2.tidyverse.org/) is the foundation for
+  `make_scatter_plot()`, but `wrangler` wraps some common scatterplot
+  configuration options (points, smoother, optional prediction line,
+  axis labels) into a single function call, reducing code for repetitive
+  plot generation.
+- Base R’s `log()` function performs log transformation, but
+  `wrangler`’s `log_transform()` adds input validation with informative
+  error messages for non-numeric, NA, empty, or non-positive inputs.
 
 ## Installation
 
-You can install the development version of wrangler from
-[GitHub](https://github.com/) with:
+You can install the development version of `wrangler` from GitHub with:
 
 ``` r
 # install.packages("pak")
 pak::pak("UBC-DSCI-310-2025W2/wrangler")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+## Usage
 
 ``` r
 library(wrangler)
-## basic example code
+
+# Drop columns from a data frame
+df <- data.frame(a = 1:3, b = 4:6, c = 7:9)
+drop_columns(df, c("a", "c"))
+
+# Filter out rows with zero values
+df2 <- data.frame(budget = c(0, 1000, 5000), revenue = c(100, 200, 300))
+filter_data(df2)
+
+# Log transform a numeric vector
+log_transform(c(1000, 5000, 20000), col_name = "budget")
+
+# Create a scatterplot
+make_scatter_plot(
+  data = df,
+  x = a,
+  y = b,
+  title = "A vs B",
+  x_lab = "A",
+  y_lab = "B"
+)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+## Contributing
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
+Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to
+contribute to this project.
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
+## Code of Conduct
 
-You can also embed plots, for example:
+Please note that this project is released with a [Contributor Code of
+Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree
+to abide by its terms.
 
-<img src="man/figures/README-pressure-1.png" alt="" width="100%" />
+## License
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+This package is licensed under the MIT License. See
+[LICENSE.md](LICENSE.md) for details.
