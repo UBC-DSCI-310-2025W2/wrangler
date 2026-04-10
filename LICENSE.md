@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) 2026 wrangler authors
+Copyright (c) 2026 Audrey Vo, Roxanna Ng, Nikita Prabhu, Philip Chen
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
