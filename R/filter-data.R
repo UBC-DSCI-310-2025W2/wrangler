@@ -1,6 +1,6 @@
-#' Filters out values of 0 from all numeric and character columns in a given data frame.
+#' Filters out all rows with a numeric or character value of 0 in any column from a given data frame.
 #'
-#' @param data A data frame with at least one numeric vector.
+#' @param data A data frame with at least one row.
 #'
 #' @return A data frame where all rows with a numeric or character value of 0 in any column are filtered out.
 #' If there are no 0s, original data frame is returned.
@@ -22,12 +22,7 @@ filter_data <- function(data) {
     stop("Error: Data frame must have at least one row")
   }
   if (is.data.frame(data)) {
-    columns <- colnames(data)
-    filtered_df <- data[apply(data!=0, 1, all), ] # referenced https://www.statology.org/r-remove-rows-with-any-zero/
-    indices <- row.names(data[apply(data!=0, 1, all), 0]) # https://www.statology.org/change-row-names-in-r/
-    filtered_df <- data.frame(filtered_df)
-    colnames(filtered_df) <- columns
-    row.names(filtered_df) <- indices
+    filtered_df <- data[apply(data!=0, 1, all), , drop = FALSE] # drop = FALSE to make sure output stays as a data frame
     return(filtered_df)
   }
 }
