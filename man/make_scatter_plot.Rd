@@ -19,32 +19,59 @@ make_scatter_plot(
 )
 }
 \arguments{
-\item{data}{A data frame}
+\item{data}{A data frame.}
 
-\item{x}{column name for the x axis}
+\item{x}{Column name for the x axis.}
 
-\item{y}{column name for the y axis}
+\item{y}{Column name for the y axis.}
 
-\item{title}{Plot title}
+\item{title}{Plot title.}
 
-\item{x_lab}{x-axis label}
+\item{x_lab}{x-axis label.}
 
-\item{y_lab}{y-axis label}
+\item{y_lab}{y-axis label.}
 
-\item{smooth_method}{Passed to ggplot2::geom_smooth() \code{method}
-Use \code{NULL} for no smooth}
+\item{smooth_method}{Passed to ggplot2::geom_smooth() \code{method}.
+Use \code{NULL} for no smooth.}
 
-\item{se}{Whether to show the smooth confidence ribbon}
+\item{se}{Whether to show the smooth confidence ribbon.}
 
-\item{point_alpha}{Alpha for ggplot2::geom_point()}
+\item{point_alpha}{Alpha for ggplot2::geom_point().}
 
-\item{pred_line}{Optional; name of the column of fitted y values}
+\item{pred_line}{Optional; name of the column of fitted y values (string).}
 
-\item{pred_line_color}{Color for the prediction line}
+\item{pred_line_color}{Color for the prediction line.}
 }
 \value{
-A ggplot2::ggplot scatterplot
+A ggplot2::ggplot scatterplot.
 }
 \description{
 Scatter plots for budget vs revenue analysis
+}
+\examples{
+df <- data.frame(
+  budget = c(16000, 26000, 36000),
+  domgross = c(26000, 46000, 66000)
+)
+make_scatter_plot(
+  df,
+  budget,
+  domgross,
+  title = "Domestic revenue vs budget",
+  x_lab = "Budget (USD)",
+  y_lab = "Revenue (USD)"
+)
+
+df$pred <- df$domgross
+make_scatter_plot(
+  df,
+  budget,
+  domgross,
+  title = "With prediction line",
+  x_lab = "Budget",
+  y_lab = "Revenue",
+  smooth_method = NULL,
+  pred_line = "pred"
+)
+
 }
