@@ -3,7 +3,7 @@
 #' @param data A data frame with at least one row.
 #'
 #' @return A data frame where all rows with a numeric or character value of 0 in any column are filtered out.
-#' If there are no 0s, original data frame is returned.
+#' If there are no values of 0, original data frame is returned.
 #' Indexes (row names) will contain the same values as the original data frame.
 #' Rows containing the string "zero" spelled out will not be filtered.
 #'
