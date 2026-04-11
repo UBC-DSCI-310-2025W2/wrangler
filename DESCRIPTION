@@ -17,6 +17,8 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    palmerpenguins,
+    dplyr
 VignetteBuilder: knitr
 Config/testthat/edition: 3
