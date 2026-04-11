@@ -6,7 +6,7 @@ Authors@R: c(
   person("Roxanna", "Ng", email = "snowy17037@gmail.com", role = c("aut")),
   person("Philip", "Chen", email = "philipchen@hotmail.ca", role = c("aut")),
   person("Nikita", "Prabhu", email = "nikitapcollege@gmail.com", role = c("aut")))
-Description: Description: Provides helper functions for common data wrangling, transformation,
+Description: Provides helper functions for common data wrangling, transformation,
        and visualization tasks in data science workflows. Includes tools for dropping
        columns, filtering zero values, applying log transformations, and generating
        scatter plots with optional smoothing and prediction lines.
