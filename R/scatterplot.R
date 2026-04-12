@@ -49,7 +49,6 @@ make_scatter_plot <- function(data, x, y, title, x_lab, y_lab, smooth_method = "
   if (!is.data.frame(data)) {
     stop("Error: 'data' must be a data frame")
   }
-
   nm <- names(data)
   axes <- list(x = substitute(x), y = substitute(y))
   for (param in names(axes)) {
@@ -73,7 +72,12 @@ make_scatter_plot <- function(data, x, y, title, x_lab, y_lab, smooth_method = "
       ))
     }
   }
-
+  if (!is.character(x_lab)) {
+    stop("Error: 'x_lab' must be of character data type")
+  }
+  if (!is.character(y_lab)) {
+    stop("Error: 'y_lab' must be of character data type")
+  }
   p <- eval(substitute(
     ggplot2::ggplot(data, ggplot2::aes(x, y)),
     list(x = substitute(x), y = substitute(y))

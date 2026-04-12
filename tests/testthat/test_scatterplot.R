@@ -158,3 +158,48 @@ test_that("error when x aesthetic references a column not in data", {
   )
 })
 
+test_that("error when y aesthetic references a column not in data", {
+  expect_error(
+    make_scatter_plot(
+      test_data,
+      budget,
+      !!rlang::sym("not_a_column"),
+      title = "t",
+      x_lab = "x",
+      y_lab = "y",
+      smooth_method = NULL
+    ),
+    regexp = "Error: 'y' column does not exist in 'data'"
+  )
+})
+
+test_that("error when x_lab is not of character data type", {
+  expect_error(
+    make_scatter_plot(
+      test_data,
+      budget,
+      domgross,
+      title = "t",
+      x_lab = NULL,
+      y_lab = "y",
+      smooth_method = NULL
+    ),
+    regexp = "Error: 'x_lab' must be of character data type"
+  )
+})
+
+test_that("error when y_lab is not of character data type", {
+  expect_error(
+    make_scatter_plot(
+      test_data,
+      budget,
+      domgross,
+      title = "t",
+      x_lab = "x",
+      y_lab = NULL,
+      smooth_method = NULL
+    ),
+    regexp = "Error: 'y_lab' must be of character data type"
+  )
+})
+
