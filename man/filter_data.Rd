@@ -2,21 +2,21 @@
 % Please edit documentation in R/filter-data.R
 \name{filter_data}
 \alias{filter_data}
-\title{Filters out values of 0 from all numeric and character columns in a given data frame.}
+\title{Filters out all rows with a numeric or character value of 0 in any column from a given data frame.}
 \usage{
 filter_data(data)
 }
 \arguments{
-\item{data}{A data frame with at least one numeric vector.}
+\item{data}{A data frame with at least one row.}
 }
 \value{
 A data frame where all rows with a numeric or character value of 0 in any column are filtered out.
-If there are no 0s, original data frame is returned.
+If there are no values of 0, original data frame is returned.
 Indexes (row names) will contain the same values as the original data frame.
 Rows containing the string "zero" spelled out will not be filtered.
 }
 \description{
-Filters out values of 0 from all numeric and character columns in a given data frame.
+Filters out all rows with a numeric or character value of 0 in any column from a given data frame.
 }
 \examples{
 filter_data(data.frame(a = c(0, 0, 1, 2),
