@@ -1,9 +1,9 @@
 library(testthat)
 library(ggplot2)
 
-# source("../../R/scatterplot.R")
-library(wrangler)
+#source("../../R/scatterplot.R")
 
+library(wrangler)
 # test input data
 
 test_data <- data.frame(
@@ -128,28 +128,78 @@ test_that("points only: one layer when smooth and pred_line are NULL", {
 # error test cases
 
 test_that("error when pred_line names a column not in data", {
-  p <- make_scatter_plot(
-    test_data,
-    budget,
-    domgross,
-    title = "t",
-    x_lab = "x",
-    y_lab = "y",
-    smooth_method = NULL,
-    pred_line = "no_such_column"
+  expect_error(
+    make_scatter_plot(
+      test_data,
+      budget,
+      domgross,
+      title = "t",
+      x_lab = "x",
+      y_lab = "y",
+      smooth_method = NULL,
+      pred_line = "no_such_column"
+    ),
+    regexp = "Error: the following columns given are not in the data"
   )
-  expect_error(ggplot_build(p), regexp = "not found")
 })
 
 test_that("error when x aesthetic references a column not in data", {
-  p <- make_scatter_plot(
-    test_data,
-    !!rlang::sym("not_a_column"),
-    domgross,
-    title = "t",
-    x_lab = "x",
-    y_lab = "y",
-    smooth_method = NULL
+  expect_error(
+    make_scatter_plot(
+      test_data,
+      !!rlang::sym("not_a_column"),
+      domgross,
+      title = "t",
+      x_lab = "x",
+      y_lab = "y",
+      smooth_method = NULL
+    ),
+    regexp = "Error: 'x' column does not exist in 'data'"
   )
-  expect_error(ggplot_build(p), regexp = "aesthetics|not found")
 })
+
+test_that("error when y aesthetic references a column not in data", {
+  expect_error(
+    make_scatter_plot(
+      test_data,
+      budget,
+      !!rlang::sym("not_a_column"),
+      title = "t",
+      x_lab = "x",
+      y_lab = "y",
+      smooth_method = NULL
+    ),
+    regexp = "Error: 'y' column does not exist in 'data'"
+  )
+})
+
+test_that("error when x_lab is not of character data type", {
+  expect_error(
+    make_scatter_plot(
+      test_data,
+      budget,
+      domgross,
+      title = "t",
+      x_lab = NULL,
+      y_lab = "y",
+      smooth_method = NULL
+    ),
+    regexp = "Error: 'x_lab' must be of character data type"
+  )
+})
+
+test_that("error when y_lab is not of character data type", {
+  expect_error(
+    make_scatter_plot(
+      test_data,
+      budget,
+      domgross,
+      title = "t",
+      x_lab = "x",
+      y_lab = NULL,
+      smooth_method = NULL
+    ),
+    regexp = "Error: 'y_lab' must be of character data type"
+  )
+})
+
